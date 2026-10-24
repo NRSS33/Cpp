@@ -43,14 +43,17 @@ int main() {
 
 **三种特殊写法**：
 
-**嵌套命名空间**——一层套一层，C++17 起可简写：
+**嵌套命名空间**——一层套一层：
 
 ```cpp
-namespace outer::inner { int n = 1; }   // 简写
-// 等价于 namespace outer { namespace inner { int n = 1; } }
+namespace outer {               // 外层命名空间
+    namespace inner {           // 内层命名空间
+        int n = 1;
+    }
+}
 
 int main() {
-    int x = outer::inner::n;            // 访问要写完整路径
+    int x = outer::inner::n;    // 访问要写完整路径
     return 0;
 }
 ```
