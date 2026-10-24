@@ -41,4 +41,46 @@ int main() {
 }
 ```
 
-> 附:三种特殊写法——嵌套 `namespace A::B {...}`（C++17 起）、匿名 `namespace {...}`（成员仅当前 .cpp 可见，作用类似 `static`）、内联 `inline namespace v2 {...}`（成员自动提升到外层，常用于版本管理）。
+**三种特殊写法**：
+
+**嵌套命名空间**——一层套一层，C++17 起可简写：
+
+```cpp
+namespace outer::inner { int n = 1; }   // 简写
+// 等价于 namespace outer { namespace inner { int n = 1; } }
+
+int main() {
+    int x = outer::inner::n;            // 访问要写完整路径
+    return 0;
+}
+```
+
+**匿名命名空间**——没有名字，成员仅当前 .cpp 可见，作用类似 `static`：
+
+```cpp
+namespace {                            // 没有名字
+    int secret = 7;
+    void helper() { /* 仅本文件可见 */ }
+}
+
+int main() {
+    helper();              // 直接访问
+    int x = ::secret;      // 也可以加 :: 限定
+    return 0;
+}
+```
+
+**内联命名空间**——成员自动"提升"到外层，常用于版本管理：
+
+```cpp
+namespace lib {
+    inline namespace v2 { int f() { return 2; } }   // 当前版本
+    namespace v1       { int f() { return 1; } }    // 旧版本
+}
+
+int main() {
+    int a = lib::f();        // 直接访问，实际是 v2::f()
+    int b = lib::v1::f();    // 旧版本要写 lib::v1::
+    return 0;
+}
+```
