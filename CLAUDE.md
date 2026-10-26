@@ -27,7 +27,7 @@ A personal C++ knowledge base built with [Quartz](https://quartz.jzhao.xyz/) v5 
 - **Quartz v5** static site generator. Framework code in `quartz/` is vendored from upstream — do not edit it. User overrides go in `.quartz/` (gitignored).
 - **`content/`** — the only directory you author. Open this folder in Obsidian to edit notes. Notes are organized by功能分类:
   - `content/index.md` — homepage (title `C++ 笔记`), links to the notes below.
-  - `content/language_basics.md` — 语言基础（按功能分类，目前含「命名空间」一节）。
+  - `content/language_basics.md` — 语言基础（按功能分类，目前含「命名空间」「引用」两节）。
 - **`quartz.config.yaml`** — all site configuration (title, locale, theme, plugins, layout) is declared here. Plugins are `@quartz-community/*` / `@quartz-themes/*` npm packages that the `prebuild` script (`install-plugins`) auto-installs into `.quartz/plugins/`.
 - **`public/`** — build output (gitignored). Never edit directly.
 - **Deployment** — pushing to the `main` branch triggers `.github/workflows/deploy.yml`, which runs `npm ci` + `npx quartz build` and deploys `public/` to GitHub Pages. No separate deploy branch is used.

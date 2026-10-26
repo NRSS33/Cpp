@@ -9,3 +9,4 @@ title: C++ 笔记
 ### [[language_basics|语言基础]]
 
 - [[language_basics#命名空间|1. 命名空间]]
+- [[language_basics#引用|2. 引用]]
