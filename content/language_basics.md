@@ -11,7 +11,6 @@ created: 2026-10-24
 ### 命名空间
 - [[#定义与使用|定义与使用]]
 - [[#声明与实现分离|声明与实现分离]]
-- [[#特殊写法|特殊写法]]
 
 ---
 
@@ -41,6 +40,53 @@ using std::cout;                   // 只引入 cout
 
 int main() {
     cout << ml::value << "\n";    // 用别名访问（等价 mylib::value）
+    return 0;
+}
+```
+
+**三种特殊写法**：
+
+**嵌套命名空间**——一层套一层：
+
+```cpp
+namespace outer {               // 外层命名空间
+    namespace inner {           // 内层命名空间
+        int n = 1;
+    }
+}
+
+int main() {
+    int x = outer::inner::n;    // 访问要写完整路径
+    return 0;
+}
+```
+
+**匿名命名空间**——没有名字，成员仅当前 .cpp 可见，作用类似 `static`：
+
+```cpp
+namespace {                            // 没有名字
+    int secret = 7;
+    void helper() { /* 仅本文件可见 */ }
+}
+
+int main() {
+    helper();              // 直接访问
+    int x = ::secret;      // 也可以加 :: 限定
+    return 0;
+}
+```
+
+**内联命名空间**——成员自动"提升"到外层，常用于版本管理：
+
+```cpp
+namespace lib {
+    inline namespace v2 { int f() { return 2; } }   // 当前版本
+    namespace v1       { int f() { return 1; } }    // 旧版本
+}
+
+int main() {
+    int a = lib::f();        // 直接访问，实际是 v2::f()
+    int b = lib::v1::f();    // 旧版本要写 lib::v1::
     return 0;
 }
 ```
@@ -84,53 +130,6 @@ namespace mylib {            // 重新打开同一个命名空间
 int main() {
     int x = mylib::add(1, 2);   // 用 :: 调用
     mylib::hello();
-    return 0;
-}
-```
-
-### 特殊写法
-
-**嵌套命名空间**——一层套一层：
-
-```cpp
-namespace outer {               // 外层命名空间
-    namespace inner {           // 内层命名空间
-        int n = 1;
-    }
-}
-
-int main() {
-    int x = outer::inner::n;    // 访问要写完整路径
-    return 0;
-}
-```
-
-**匿名命名空间**——没有名字，成员仅当前 .cpp 可见，作用类似 `static`：
-
-```cpp
-namespace {                            // 没有名字
-    int secret = 7;
-    void helper() { /* 仅本文件可见 */ }
-}
-
-int main() {
-    helper();              // 直接访问
-    int x = ::secret;      // 也可以加 :: 限定
-    return 0;
-}
-```
-
-**内联命名空间**——成员自动"提升"到外层，常用于版本管理：
-
-```cpp
-namespace lib {
-    inline namespace v2 { int f() { return 2; } }   // 当前版本
-    namespace v1       { int f() { return 1; } }    // 旧版本
-}
-
-int main() {
-    int a = lib::f();        // 直接访问，实际是 v2::f()
-    int b = lib::v1::f();    // 旧版本要写 lib::v1::
     return 0;
 }
 ```
