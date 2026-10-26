@@ -41,6 +41,49 @@ int main() {
 }
 ```
 
+**声明与实现分离**——声明放头文件、实现放源文件：
+
+```cpp
+// mylib.h —— 只声明
+#ifndef MYLIB_H            // 防止头文件被重复包含
+#define MYLIB_H
+
+namespace mylib {
+    int add(int a, int b);   // 声明，不写函数体
+    void hello();
+}
+
+#endif
+```
+
+```cpp
+// mylib.cpp —— 实现
+#include "mylib.h"
+
+namespace mylib {            // 重新打开同一个命名空间
+    int add(int a, int b) {
+        return a + b;
+    }
+
+    void hello() {
+        // ...
+    }
+}
+```
+
+```cpp
+// main.cpp —— 调用
+#include "mylib.h"
+
+int main() {
+    int x = mylib::add(1, 2);   // 用 :: 调用
+    mylib::hello();
+    return 0;
+}
+```
+
+> 说明:头文件里 `namespace mylib {...}` 和源文件里 `namespace mylib {...}` 是同一个命名空间（可分多次定义、自动合并），所以声明和实现能分开写在两个文件里。
+
 **三种特殊写法**：
 
 **嵌套命名空间**——一层套一层：
