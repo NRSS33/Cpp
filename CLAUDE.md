@@ -35,11 +35,11 @@ A personal C++ knowledge base built with [Quartz](https://quartz.jzhao.xyz/) v5 
 ## Content conventions (`content/*.md`)
 
 - Frontmatter uses `title`, `tags`, `created`.
-- Notes are organized by功能分类: each category is one Markdown file (e.g. `content/language_basics.md`). Each file starts with a `## 目录` TOC (a flat list of `[[#主题|主题]]` links) followed by `---`, then `## 主题` sections (e.g. `## 命名空间`).
+- Notes are organized by功能分类: each category is one Markdown file (e.g. `content/language_basics.md`). Each file mirrors `Linux.md`: a `## 目录` TOC with unnumbered `### 分类` groups + `[[#主题|主题]]` links, then numbered `## N. 分类` sections with `### 主题` sub-topics.
 - Each topic keeps it short — only 作用 and 用法:
   - `**作用**：…` one line for what it's for
   - `**用法**：` a few bullets (定义 / 访问 / 引入 …)
   - one fenced `cpp` code block, plus an optional `> 附:` note for edge cases
 - Cross-links use Obsidian wikilinks: `[[note#anchor]]` from `index.md`. **Write the anchor as verbatim heading text** (spaces/parens/case exactly as the heading) — Quartz slugifies anchors at build time and Obsidian matches headings verbatim, so verbatim anchors resolve in both.
-- **Adding a topic touches two places:** (1) a new `## 主题` section in the category file, (2) a `[[分类文件#主题|主题]]` link in `index.md` under the category. Then run `publish.bat` to deploy.
+- **Adding a topic touches three places:** (1) a new `### 主题` section in the category file, (2) a `[[#主题|主题]]` link in that file's `## 目录`, (3) a `[[分类文件#分类|N. 分类]]` link in `index.md`. Then run `publish.bat` to deploy.
 - The build's `ignorePatterns` excludes `private`, `templates`, and `.obsidian`; `.claudian/` and `.playwright-mcp/` are also gitignored.
