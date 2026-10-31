@@ -10,3 +10,4 @@ title: C++ 笔记
 
 - [[language_basics#命名空间|1. 命名空间]]
 - [[language_basics#引用|2. 引用]]
+- [[language_basics#内联函数|3. 内联函数]]
